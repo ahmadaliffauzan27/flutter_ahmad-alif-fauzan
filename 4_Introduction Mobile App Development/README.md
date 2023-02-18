@@ -7,9 +7,9 @@ Software merupakan kumpulan perintah yang teroganisir, perintah tersebut dibuat 
 Jenis software:
 -Web 
 contoh web : google chrome
--Dekstop 
+- Dekstop 
 contoh dekstop : ms.office, photoshop dll
--Mobile
+- Mobile
 
 Bahasa pemrograman merupakan rangkain teks yang digunakan untuk memberi perintah kepda komputer. 
 
