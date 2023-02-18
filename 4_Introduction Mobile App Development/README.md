@@ -5,9 +5,11 @@ Mobile app development merupakan sebuah proses pengembangan aplikasi yang berjal
 
 Software merupakan kumpulan perintah yang teroganisir, perintah tersebut dibuat oleh seorang software developer menggunakan bahasa pemrograman.
 Jenis software:
--Web, contoh web : google chrome
--Dekstop, contoh dekstop :ms.office, photoshop dll
--Mobile, contoh
+-Web 
+contoh web : google chrome
+-Dekstop 
+contoh dekstop : ms.office, photoshop dll
+-Mobile
 
 Bahasa pemrograman merupakan rangkain teks yang digunakan untuk memberi perintah kepda komputer. 
 
