@@ -9,8 +9,8 @@ Git memiliki working directory, tempat dimana membuat perubahan file secara loka
 Merge merupakan penggabungan antara 2 branch atau lebih dalam repository git. Dalam proses merge sering terjadi merge conflict yang merupakan kasus pertentangan ketika proses merge antara kedua source berbeda.
 
 ## Rangkuman Kode ##
-git branch "nama branch" (untuk membuat branch baru)
-git status (untuk melihat apakah ada perubahan pada program)
-git add . (untuk memproses perubahan tersebut ke stage area)
-git commit -m "pesan" (untuk mengcommmit ke local)
-git push 'remote' 'nama branch' (untuk push ke server atau github)
+- git branch "nama branch" (untuk membuat branch baru)
+- git status (untuk melihat apakah ada perubahan pada program)
+- git add . (untuk memproses perubahan tersebut ke stage area)
+- git commit -m "pesan" (untuk mengcommmit ke local)
+- git push 'remote' 'nama branch' (untuk push ke server atau github)
