@@ -1,5 +1,5 @@
 void main(){
-  var nilai = 20;
+  var nilai = -9;
 
   if (nilai > 70){
     print('Nilai A');
