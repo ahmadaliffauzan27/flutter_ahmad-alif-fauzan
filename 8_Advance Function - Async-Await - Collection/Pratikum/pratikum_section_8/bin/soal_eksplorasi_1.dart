@@ -2,7 +2,7 @@ import 'dart:io';
 
 void main() {
   // Minta input dari user
-  stdout.write("Masukkan data (pisahkan dengan spasi): ");
+  stdout.write("Masukkan data *pisahkan dengan spasi* : ");
   String input = stdin.readLineSync()!;
   
   // Buat list dari input
