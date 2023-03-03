@@ -6,7 +6,7 @@ void main() {
 
   // Membaca input dari user dan menambahkan nilai ke variabel sum
   while (true) {
-    stdout.write('Masukkan sebuah angka: ');
+    stdout.write('Masukkan angka: ');
     var input = stdin.readLineSync();
 
     // Mengecek apakah input adalah 'selesai', jika iya maka keluar dari loop
