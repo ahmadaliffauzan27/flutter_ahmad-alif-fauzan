@@ -17,5 +17,5 @@ void main() {
 
   
   // Cetak hasil
-  print("Data unik: ${uniqueList.join(", ")}");
+  print("Data unik : ${uniqueList.join(", ")}");
 }
