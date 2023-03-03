@@ -1,7 +1,7 @@
 import 'dart:io';
 
 void main() async {
-  stdout.write('Masukkan bilangan bulat positif: ');
+  stdout.write('Masukkan bilangan: ');
   int n = int.parse(stdin.readLineSync()!);
 
   int factorial = await computeFactorial(n);
