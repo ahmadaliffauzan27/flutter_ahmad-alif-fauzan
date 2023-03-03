@@ -10,12 +10,12 @@ Future<List<int>> multiplyList(List<int> data, int pengali) async {
 }
 
 void main() async {
-  List<int> data = [1, 2, 3, 4, 5];
+  List<int> data = [1, 2, 3, 4, 5, 6];
   int pengali = 2;
 
   List<int> multipliedList = await multiplyList(data, pengali);
 
-  print("Data asli: $data");
-  print("Pengali: $pengali");
+  print("Data Asli: $data");
+  print("Angka Pengali: $pengali");
   print("Hasil perkalian: $multipliedList");
 }
