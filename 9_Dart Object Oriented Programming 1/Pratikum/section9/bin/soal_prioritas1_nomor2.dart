@@ -1,13 +1,14 @@
 class Mobil {
-  double kapasitas;
-  List<Hewan> muatan = [];
+  double kapasitas; //properti 1
 
-  Mobil({required this.kapasitas});
+  List<Hewan> muatan = []; //properti 2
 
-  void tambahMuatan(Hewan hewan) {
+  Mobil({required this.kapasitas}); //Konstruktor dengan parameter kapasitas
+
+  void tambahMuatan(Hewan hewan) { //method tambahMuatan
     double totalBeratMuatan = 0;
-    for (Hewan h in muatan) {
-      totalBeratMuatan += h.berat;
+    for (Hewan hewan in muatan) { // Menambah sebuah objek Hewan ke dalam muatan
+      totalBeratMuatan += hewan.berat; 
     }
 
     if (totalBeratMuatan + hewan.berat <= kapasitas) {
@@ -28,12 +29,14 @@ class Hewan {
 
 void main(){
   Mobil mobil = Mobil(kapasitas: 50);
+  
   Hewan ayam = Hewan(nama: 'Ayam', berat: 5);
   mobil.tambahMuatan(ayam);
 
   Hewan capybara = Hewan(nama: 'Capybara', berat: 14);
   mobil.tambahMuatan(capybara);
-  
+
   Hewan kuda = Hewan(nama: 'Kuda', berat: 60);
   mobil.tambahMuatan(kuda);
+
 }

@@ -5,4 +5,5 @@ class Hewan {
 void main(){
   var hewan = Hewan();
   print('Berat Hewan di class Hewan adalah ${hewan.berat}');
+  // print(hewan.berat);
 }
