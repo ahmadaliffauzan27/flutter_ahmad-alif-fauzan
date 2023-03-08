@@ -5,5 +5,6 @@ class BangunRuang{
 
   double volume(){
     return panjang * lebar * tinggi;
+    
   }
 }
