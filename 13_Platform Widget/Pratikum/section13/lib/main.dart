@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:section13/home.dart';
 
 
 void main() {
@@ -66,14 +67,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Ini Halaman Home',
-      style: TextStyle(
-        fontSize: 16,
-        color: Colors.white,
-        fontWeight: FontWeight.w400,
-      ),
-    ),
+    Home(),
     Text(
       'Ini Halaman Setting',
       style: TextStyle(
