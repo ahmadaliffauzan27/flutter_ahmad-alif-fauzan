@@ -7,49 +7,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       debugShowCheckedModeBanner: false,
-      home: CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          backgroundColor: Color.fromARGB(255, 36, 33, 33),
-          activeColor: CupertinoColors.white,
-          inactiveColor: CupertinoColors.darkBackgroundGray,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings),
-              label: 'Setting',
-            ),
-          ],
-        ),
-        tabBuilder: (BuildContext context, int index) {
-          return CupertinoTabView(
-            builder: (BuildContext context) {
-              return CupertinoPageScaffold(
-                navigationBar: const CupertinoNavigationBar(
+      home: CupertinoPageScaffold(
+                navigationBar: CupertinoNavigationBar(
                   middle: Text(
                     'CupertinoApp',
                     style: TextStyle(
                       color: CupertinoColors.white,
                     ),),
-                  backgroundColor: Color.fromARGB(255, 36, 33, 33),
+                  backgroundColor: CupertinoColors.darkBackgroundGray,
                 ),
                 backgroundColor: CupertinoColors.black,
                 child: Center(
                   child: Text(
-                    'Content of tab $index',
-                    style: const TextStyle(
+                    'Mang eak',
+                    style: TextStyle(
                       color: CupertinoColors.white,
                     ),),
                 ),
-              );
-            },
-          );
-        },
-      ),
-    );
+              ));
   }
 }
