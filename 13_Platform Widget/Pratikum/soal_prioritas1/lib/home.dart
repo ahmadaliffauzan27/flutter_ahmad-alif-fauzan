@@ -8,20 +8,20 @@ class HalamanHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return const Scaffold(
-    //   backgroundColor: Colors.white,
-    //   body: ProfileData());
-    return const SafeArea(
-      child: Center(
-        child: Text(
-          'Ini Halaman Home',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500
-          ),
-          ),
-      )
-      );
+    return const Scaffold(
+      backgroundColor: Colors.white,
+      body: ProfileData());
+    // return const SafeArea(
+    //   child: Center(
+    //     child: Text(
+    //       'Ini Halaman Home',
+    //       style: TextStyle(
+    //         color: Colors.white,
+    //         fontSize: 16,
+    //         fontWeight: FontWeight.w500
+    //       ),
+    //       ),
+    //   )
+      // );
   }
 }
