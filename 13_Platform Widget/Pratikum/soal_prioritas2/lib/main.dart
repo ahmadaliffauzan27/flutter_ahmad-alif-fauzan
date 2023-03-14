@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
                 backgroundColor: CupertinoColors.black,
                 child: Center(
                   child: Text(
-                    'Mang eak',
+                    'This is CupertinoApp',
                     style: TextStyle(
                       color: CupertinoColors.white,
                     ),),
