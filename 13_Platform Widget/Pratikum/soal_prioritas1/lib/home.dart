@@ -11,6 +11,8 @@ class HalamanHome extends StatelessWidget {
     return const Scaffold(
       backgroundColor: Colors.white,
       body: ProfileData());
+
+    // Home page polos
     // return const SafeArea(
     //   child: Center(
     //     child: Text(
