@@ -1,0 +1,6 @@
+### MaterialApp dan CupertinoApp ####
+MaterialApp dan CupertinoApp adalah widget dalam flutter, bedanya MaterialApp digunakan untuk Android sedangkan CupertinoApp digunakan untuk iOS.
+
+***MaterialApp*** menggunakan widget Scaffold sebagai kerangka utama aplikasi. Dalam widget ini, kita bisa menambahkan elemen visual seperti AppBar, BottomNavigationBar, dan FloatingActionButton. Scaffold sangat membantu dalam mengatur tata letak halaman dan menangani navigasi antarhalaman. Dengan menggunakan MaterialApp, kita bisa membuat aplikasi dengan tampilan yang konsisten dengan desain Material, sehingga proses pengembangan dapat lebih cepat.
+
+Sementara itu, ***CupertinoApp*** menggunakan widget CupertinoTabScaffold untuk membuat aplikasi dengan beberapa tab. CupertinoTabScaffold memiliki kemampuan navigasi antartab dan pengaturan tampilan tab yang mudah. CupertinoTabScaffold menyediakan CupertinoTabBar sebagai bagian atas tampilan aplikasi, yang memungkinkan pengguna untuk beralih antartab. CupertinoTabScaffold juga menyediakan CupertinoNavigationBar sebagai bagian atas halaman di dalam tab.
