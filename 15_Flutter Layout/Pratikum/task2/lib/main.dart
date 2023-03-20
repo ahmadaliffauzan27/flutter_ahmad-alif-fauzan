@@ -14,185 +14,183 @@ class MyApp extends StatelessWidget {
       title: 'Example',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'GridView'
-          ),
+          title: const Text('GridView'),
         ),
-        body : GridView.count(
-      crossAxisCount: 4,
-      children: const [
-        Icon(
-        Icons.blur_on,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
+        body: GridView.count(
+          crossAxisCount: 4,
+          children: const [
+            Icon(
+              Icons.blur_on,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.addchart_outlined,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+            Icon(
+              Icons.audiotrack,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            Icon(
+              Icons.beach_access,
+              color: Colors.blue,
+              size: 36.0,
+            ),
+          ],
         ),
-        Icon(
-        Icons.addchart_outlined,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.favorite,
-        color: Colors.pink,
-        size: 24.0,
-        semanticLabel: 'Text to announce in accessibility modes',
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-        Icon(
-        Icons.audiotrack,
-        color: Colors.green,
-        size: 30.0,
-        ),
-        Icon(
-        Icons.beach_access,
-        color: Colors.blue,
-        size: 36.0,
-        ),
-      ],
-    ),
       ),
     );
   }
