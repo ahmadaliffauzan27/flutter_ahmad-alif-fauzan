@@ -38,22 +38,12 @@ class _CreateNewContactState extends State<CreateNewContact> {
   }
 
   void validateAndSave() {
-    final FormState form1 = formKey1.currentState!;
-    final FormState form2 = formKey2.currentState!;
-    if (form1.validate() && form2.validate()) {
-      final name = inputController1.text;
-      final number = inputController2.text;
+    final FormState? form1 = formKey1.currentState;
+    final FormState? form2 = formKey2.currentState;
+    final String name = inputController1.text;
+    final String number = inputController2.text;
 
-      setState(
-        () {
-          contacts.add(
-            Contact(name, number),
-          );
-        },
-      );
-      inputController1.text = '';
-      inputController2.text = '';
-    } else {
+    if (form1 == null || form2 == null || name.isEmpty || number.isEmpty) {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -71,17 +61,13 @@ class _CreateNewContactState extends State<CreateNewContact> {
           ],
         ),
       );
+    } else {
+      setState(() {
+        contacts.add(Contact(name, number));
+        inputController1.clear();
+        inputController2.clear();
+      });
     }
-  }
-
-  void saveContact() {
-    final name = inputController1.text;
-    final number = inputController2.text;
-    final newContact = Contact(name, number);
-    contacts.add(newContact);
-
-    inputController1.clear();
-    inputController2.clear();
   }
 
   @override
@@ -267,7 +253,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 child: ElevatedButton(
                   onPressed: () {
                     validateAndSave();
-                    saveContact();
+                    // saveContact();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,
@@ -307,9 +293,40 @@ class _CreateNewContactState extends State<CreateNewContact> {
               itemCount: contacts.length,
               itemBuilder: (BuildContext context, int index) {
                 final contact = contacts[index];
+                final color = circleAvatar;
                 return ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: color,
+                    child: Text(
+                      contact.name.substring(0, 1),
+                      style: TextStyle(
+                        color: buttonColor,
+                      ),
+                    ),
+                  ),
                   title: Text(contact.name),
                   subtitle: Text(contact.number),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          // EditContactPage();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(
+                            () {
+                              contacts.removeAt(index);
+                            },
+                          );
+                        },
+                      )
+                    ],
+                  ),
                 );
               }),
         ],
