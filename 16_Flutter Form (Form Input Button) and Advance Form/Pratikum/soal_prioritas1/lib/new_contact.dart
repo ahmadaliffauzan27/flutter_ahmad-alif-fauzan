@@ -5,8 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:soal_prioritas1/theme.dart';
 import 'package:supercharged/supercharged.dart';
 
+class Contact {
+  final String name;
+  final String number;
+
+  Contact(this.name, this.number);
+}
+
 class CreateNewContact extends StatefulWidget {
-  const CreateNewContact({super.key});
+  const CreateNewContact({Key? key}) : super(key: key);
 
   @override
   State<CreateNewContact> createState() => _CreateNewContactState();
@@ -15,6 +22,9 @@ class CreateNewContact extends StatefulWidget {
 class _CreateNewContactState extends State<CreateNewContact> {
   var inputController1 = TextEditingController();
   var inputController2 = TextEditingController();
+
+  // List<Map<String, dynamic>> contacts = [];
+  List<Contact> contacts = [];
 
   var formKey1 = GlobalKey<FormState>();
   var formKey2 = GlobalKey<FormState>();
@@ -25,6 +35,53 @@ class _CreateNewContactState extends State<CreateNewContact> {
 
   void dispose2() {
     inputController1.dispose();
+  }
+
+  void validateAndSave() {
+    final FormState form1 = formKey1.currentState!;
+    final FormState form2 = formKey2.currentState!;
+    if (form1.validate() && form2.validate()) {
+      final name = inputController1.text;
+      final number = inputController2.text;
+
+      setState(
+        () {
+          contacts.add(
+            Contact(name, number),
+          );
+        },
+      );
+      inputController1.text = '';
+      inputController2.text = '';
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Validation Error'),
+          content: const Text(
+            'Please fill in all required fields',
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void saveContact() {
+    final name = inputController1.text;
+    final number = inputController2.text;
+    final newContact = Contact(name, number);
+    contacts.add(newContact);
+
+    inputController1.clear();
+    inputController2.clear();
   }
 
   @override
@@ -43,7 +100,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         children: [
           const SizedBox(
-            height: 56,
+            height: 30,
           ),
           SizedBox(
             height: 160,
@@ -138,7 +195,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 0),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -208,7 +265,10 @@ class _CreateNewContactState extends State<CreateNewContact> {
               SizedBox(
                 width: 94,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    validateAndSave();
+                    saveContact();
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,
                     shape: RoundedRectangleBorder(
@@ -226,6 +286,32 @@ class _CreateNewContactState extends State<CreateNewContact> {
               ),
             ],
           ),
+          const SizedBox(
+            height: 49,
+          ),
+          Center(
+            child: Text(
+              'List Contact',
+              style: GoogleFonts.roboto(
+                fontSize: 24,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: contacts.length,
+              itemBuilder: (BuildContext context, int index) {
+                final contact = contacts[index];
+                return ListTile(
+                  title: Text(contact.name),
+                  subtitle: Text(contact.number),
+                );
+              }),
         ],
       ),
     );
