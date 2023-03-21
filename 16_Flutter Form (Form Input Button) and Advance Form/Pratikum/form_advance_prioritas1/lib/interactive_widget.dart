@@ -156,7 +156,6 @@ class _InteractiveWidgetState extends State<InteractiveWidget> {
 
     // mendapatkan file dari object result
     final file = result.files.first;
-    _openFile(file);
   }
 
   void _openFile(PlatformFile file) {
