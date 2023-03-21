@@ -276,7 +276,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                         TextFormField(
                           controller: _numberController,
                           decoration: InputDecorationStyle.inputDecorationStyle(
-                            '08xx',
+                            '08xx-xxxx-xxxx',
                           ).copyWith(
                               floatingLabelBehavior:
                                   FloatingLabelBehavior.never),
