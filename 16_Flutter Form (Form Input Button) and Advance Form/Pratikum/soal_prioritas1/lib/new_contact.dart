@@ -2,12 +2,15 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:soal_prioritas1/edit_contact.dart';
 import 'package:soal_prioritas1/theme.dart';
 import 'package:supercharged/supercharged.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'input_decoration.dart';
 
 class Contact {
-  final String name;
-  final String number;
+  String name;
+  String number;
 
   Contact(this.name, this.number);
 }
@@ -20,54 +23,72 @@ class CreateNewContact extends StatefulWidget {
 }
 
 class _CreateNewContactState extends State<CreateNewContact> {
-  var inputController1 = TextEditingController();
-  var inputController2 = TextEditingController();
+  final _formKey1 = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
 
-  // List<Map<String, dynamic>> contacts = [];
-  List<Contact> contacts = [];
-
-  var formKey1 = GlobalKey<FormState>();
-  var formKey2 = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _numberController = TextEditingController();
 
   void dispose1() {
-    inputController1.dispose();
+    _nameController.dispose();
   }
 
   void dispose2() {
-    inputController1.dispose();
+    _numberController.dispose();
   }
 
-  void validateAndSave() {
-    final FormState? form1 = formKey1.currentState;
-    final FormState? form2 = formKey2.currentState;
-    final String name = inputController1.text;
-    final String number = inputController2.text;
+  List<Contact> contactList = [];
 
-    if (form1 == null || form2 == null || name.isEmpty || number.isEmpty) {
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: const Text('Validation Error'),
-          content: const Text(
-            'Please fill in all required fields',
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('OK'),
+  void _showEditDialog(Contact contact) async {
+    TextEditingController nameController =
+        TextEditingController(text: contact.name);
+    TextEditingController numberController =
+        TextEditingController(text: contact.number);
+
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Edit Contact'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                hintText: 'Name',
+              ),
+            ),
+            TextFormField(
+              controller: numberController,
+              decoration: InputDecoration(
+                hintText: 'Number',
+              ),
             ),
           ],
         ),
-      );
-    } else {
-      setState(() {
-        contacts.add(Contact(name, number));
-        inputController1.clear();
-        inputController2.clear();
-      });
-    }
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              nameController.dispose();
+              numberController.dispose();
+            },
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                contact.name = nameController.text;
+                contact.number = numberController.text;
+              });
+
+              Navigator.of(context).pop();
+            },
+            child: Text('Save'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -143,7 +164,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
             height: 15,
           ),
           Container(
-            height: 71,
+            height: 95,
             width: 397,
             decoration: BoxDecoration(
               color: fillColorForm,
@@ -160,27 +181,24 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Form(
-                    key: formKey1,
+                    key: _formKey1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name',
-                          style: GoogleFonts.roboto(
-                            fontSize: 12,
-                          ),
-                        ),
-                        TextField(
-                          controller: inputController1,
-                          style: const TextStyle(fontSize: 14),
-                          maxLines: 1,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Insert Your name',
-                            hintStyle: TextStyle(fontSize: 14),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0),
-                          ),
+                      children: <Widget>[
+                        const Text('Name'),
+                        TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecorationStyle.inputDecorationStyle(
+                            'Input your name',
+                          ).copyWith(
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please input your name';
+                            }
+                            return null;
+                          },
                         ),
                       ],
                     ),
@@ -190,10 +208,10 @@ class _CreateNewContactState extends State<CreateNewContact> {
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 25,
           ),
           Container(
-            height: 71,
+            height: 95,
             width: 397,
             decoration: BoxDecoration(
               color: fillColorForm,
@@ -210,28 +228,25 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Form(
-                    key: formKey2,
+                    key: _formKey2,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Number',
-                          style: GoogleFonts.roboto(
-                            fontSize: 12,
-                          ),
+                      children: <Widget>[
+                        Text('Number'),
+                        TextFormField(
+                          controller: _numberController,
+                          decoration: InputDecorationStyle.inputDecorationStyle(
+                            'Input your number',
+                          ).copyWith(
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please input your number';
+                            }
+                            return null;
+                          },
                         ),
-                        TextField(
-                          controller: inputController2,
-                          style: const TextStyle(fontSize: 14),
-                          maxLines: 1,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '+62 ....',
-                            hintStyle: TextStyle(fontSize: 14),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0),
-                          ),
-                        )
                       ],
                     ),
                   ),
@@ -252,8 +267,21 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 width: 94,
                 child: ElevatedButton(
                   onPressed: () {
-                    validateAndSave();
-                    // saveContact();
+                    if (_formKey1.currentState!.validate() &&
+                        _formKey2.currentState!.validate()) {
+                      String name = _nameController.text;
+                      String number = _numberController.text;
+                      Contact newContact = Contact(name, number);
+                      setState(() {
+                        contactList.add(Contact(name, number));
+                      });
+
+                      _nameController.clear();
+                      _numberController.clear();
+
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Data Berhasil Disimpan')));
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,
@@ -287,48 +315,85 @@ class _CreateNewContactState extends State<CreateNewContact> {
           const SizedBox(
             height: 15,
           ),
-          ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: contacts.length,
-              itemBuilder: (BuildContext context, int index) {
-                final contact = contacts[index];
-                final color = circleAvatar;
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: color,
-                    child: Text(
-                      contact.name.substring(0, 1),
-                      style: TextStyle(
-                        color: buttonColor,
+          LiquidPullToRefresh(
+            onRefresh: () async {},
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: contactList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final contact = contactList[index];
+                  final color = circleAvatar;
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: color,
+                      child: Text(
+                        contact.name.substring(0, 1),
+                        style: TextStyle(
+                          color: buttonColor,
+                        ),
                       ),
                     ),
-                  ),
-                  title: Text(contact.name),
-                  subtitle: Text(contact.number),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          // EditContactPage();
-                        },
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          setState(
-                            () {
-                              contacts.removeAt(index);
-                            },
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                );
-              }),
+                    title: Text(contact.name),
+                    subtitle: Text(contact.number),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () async {
+                            // final updatedContact = await Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) =>
+                            //         ContactList(contacts: contactList),
+                            //   ),
+                            // );
+                            _showEditDialog(contact);
+                            // if (updatedContact != null) {
+                            //   setState(() {
+                            //     final index = contactList.indexOf(contact);
+                            //     contactList[index] = updatedContact;
+                            //   });
+                            // }
+                          },
+                        ),
+                        IconButton(
+                            icon: const Icon(Icons.delete),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Konfirmasi'),
+                                    content: const Text(
+                                        'Apakah Anda yakin ingin menghapus kontak ini?'),
+                                    actions: [
+                                      ElevatedButton(
+                                        child: const Text('Tidak'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        child: const Text('Ya'),
+                                        onPressed: () {
+                                          setState(() {
+                                            contactList.removeAt(index);
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            })
+                      ],
+                    ),
+                  );
+                }),
+          ),
         ],
       ),
     );
