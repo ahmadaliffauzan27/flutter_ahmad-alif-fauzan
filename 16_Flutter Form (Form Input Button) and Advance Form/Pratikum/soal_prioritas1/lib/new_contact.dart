@@ -15,6 +15,12 @@ class Contact {
   Contact(this.name, this.number);
 }
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}
+
 class CreateNewContact extends StatefulWidget {
   const CreateNewContact({Key? key}) : super(key: key);
 
@@ -35,6 +41,10 @@ class _CreateNewContactState extends State<CreateNewContact> {
 
   void dispose2() {
     _numberController.dispose();
+  }
+
+  bool isUppercase(String str) {
+    return str == str.toUpperCase();
   }
 
   List<Contact> contactList = [];
@@ -196,7 +206,23 @@ class _CreateNewContactState extends State<CreateNewContact> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please input your name';
+                            } else {
+                              List<String> words = value.trim().split(" ");
+                              for (int i = 0; i < words.length; i++) {
+                                words[i] = words[i].toLowerCase().capitalize();
+                                if (words[i][0] !=
+                                    value.trim().split(" ")[i][0]) {
+                                  return 'Each word must start with a capital letter';
+                                }
+                              }
+                              if (words.length <= 1) {
+                                return 'At least two words are required';
+                              }
+                              if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                                return 'Name cannot contain numbers or special characters';
+                              }
                             }
+
                             return null;
                           },
                         ),
@@ -243,6 +269,13 @@ class _CreateNewContactState extends State<CreateNewContact> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please input your number';
+                            } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                              return 'Please input a valid number';
+                            } else if (value[0] != '0') {
+                              return 'Number must start with 0';
+                            } else if (value.length <= 8 &&
+                                value.length <= 15) {
+                              return 'Please input minimum 8 - 15 number';
                             }
                             return null;
                           },
