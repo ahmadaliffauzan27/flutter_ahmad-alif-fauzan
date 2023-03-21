@@ -206,6 +206,9 @@ class _CreateNewContactState extends State<CreateNewContact> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please input your name';
+                            }
+                            if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+                              return 'Name cannot contain numbers or special characters';
                             } else {
                               List<String> words = value.trim().split(" ");
                               for (int i = 0; i < words.length; i++) {
@@ -215,11 +218,9 @@ class _CreateNewContactState extends State<CreateNewContact> {
                                   return 'Each word must start with a capital letter';
                                 }
                               }
+
                               if (words.length <= 1) {
                                 return 'At least two words are required';
-                              }
-                              if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
-                                return 'Name cannot contain numbers or special characters';
                               }
                             }
 
