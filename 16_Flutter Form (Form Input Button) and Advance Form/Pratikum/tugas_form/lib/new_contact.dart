@@ -100,6 +100,12 @@ class _CreateNewContactState extends State<CreateNewContact> {
               });
 
               Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Data Berhasil Diedit'),
+                  backgroundColor: Colors.green,
+                ),
+              );
             },
             child: Text('Save'),
           ),
@@ -453,6 +459,14 @@ class _CreateNewContactState extends State<CreateNewContact> {
                                             contactList.removeAt(index);
                                           });
                                           Navigator.pop(context);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content:
+                                                  Text('Data Berhasil Dihapus'),
+                                              backgroundColor: Colors.red,
+                                            ),
+                                          );
                                         },
                                       ),
                                     ],
