@@ -282,7 +282,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                             } else if (value[0] != '0') {
                               return 'Number must start with 0';
                             } else if (value.length <= 8 ||
-                                value.length <= 15) {
+                                value.length >= 15) {
                               return 'Please input minimum 8 - 15 number';
                             }
                             return null;
