@@ -58,6 +58,9 @@ class _CreateNewContactState extends State<CreateNewContact> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(color: buttonColor)),
         title: Text('Edit Contact'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -83,9 +86,13 @@ class _CreateNewContactState extends State<CreateNewContact> {
               nameController.dispose();
               numberController.dispose();
             },
-            child: Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(color: buttonColor),
+            ),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: buttonColor),
             onPressed: () {
               setState(() {
                 contact.name = nameController.text;
@@ -313,8 +320,12 @@ class _CreateNewContactState extends State<CreateNewContact> {
                       _nameController.clear();
                       _numberController.clear();
 
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Data Berhasil Disimpan')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Data Berhasil Disimpan'),
+                          backgroundColor: Colors.green,
+                        ),
+                      );
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -374,42 +385,68 @@ class _CreateNewContactState extends State<CreateNewContact> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () async {
-                            // final updatedContact = await Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         ContactList(contacts: contactList),
-                            //   ),
-                            // );
-                            _showEditDialog(contact);
-                            // if (updatedContact != null) {
-                            //   setState(() {
-                            //     final index = contactList.indexOf(contact);
-                            //     contactList[index] = updatedContact;
-                            //   });
-                            // }
-                          },
-                        ),
-                        IconButton(
-                            icon: const Icon(Icons.delete),
-                            onPressed: () {
+                            icon: const Icon(Icons.edit),
+                            color: buttonColor,
+                            onPressed: () async {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        side: BorderSide(color: buttonColor)),
                                     title: const Text('Konfirmasi'),
                                     content: const Text(
-                                        'Apakah Anda yakin ingin menghapus kontak ini?'),
+                                        'Apakah Anda ingin mengedit kontak ini?'),
                                     actions: [
                                       ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: buttonColor),
                                         child: const Text('Tidak'),
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
                                       ),
                                       ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: buttonColor),
+                                        child: const Text('Ya'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          _showEditDialog(contact);
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }),
+                        IconButton(
+                            icon: const Icon(Icons.delete),
+                            color: buttonColor,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        side: BorderSide(color: buttonColor)),
+                                    title: const Text('Konfirmasi'),
+                                    content: const Text(
+                                        'Apakah Anda yakin ingin menghapus kontak ini?'),
+                                    actions: [
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: buttonColor),
+                                        child: const Text('Tidak'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: buttonColor),
                                         child: const Text('Ya'),
                                         onPressed: () {
                                           setState(() {
