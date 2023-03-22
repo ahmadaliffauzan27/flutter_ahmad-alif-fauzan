@@ -433,7 +433,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: contact.imagePath != null
-                            ? Image.file(File(contact.imagePath!))
+                            ? Image.file(File(contact.imagePath))
                             : Container(),
                       )
                     ],
