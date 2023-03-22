@@ -1,18 +1,25 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soal_prioritas1/edit_contact.dart';
+import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
 import 'package:soal_prioritas1/theme.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'input_decoration.dart';
+import 'dart:io';
 
 class Contact {
   String name;
   String number;
+  String pickDate;
+  int color;
+  String imagePath;
 
-  Contact(this.name, this.number);
+  Contact(this.name, this.number, this.pickDate, this.color, this.imagePath);
 }
 
 extension StringExtension on String {
@@ -29,6 +36,12 @@ class CreateNewContact extends StatefulWidget {
 }
 
 class _CreateNewContactState extends State<CreateNewContact> {
+  String _imagePath = '';
+  File? _image;
+  DateTime _dueDate = DateTime.now();
+  final currentDate = DateTime.now();
+  Color _currentColor = Colors.orange;
+
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
@@ -301,8 +314,21 @@ class _CreateNewContactState extends State<CreateNewContact> {
               ),
             ),
           ),
+          //
           const SizedBox(
             height: 15,
+          ),
+          buildDatePicker(context),
+          const SizedBox(
+            height: 20,
+          ),
+          buildColorPicker(context),
+          const SizedBox(
+            height: 20,
+          ),
+          buildFilePicker(),
+          const SizedBox(
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -314,17 +340,27 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 width: 94,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey1.currentState!.validate() &&
-                        _formKey2.currentState!.validate()) {
+                    if (_formKey1 == null && _formKey2 == null) {
+                      return;
+                    } else {
                       String name = _nameController.text;
                       String number = _numberController.text;
-                      Contact newContact = Contact(name, number);
+                      String pickDate =
+                          DateFormat('dd-MM-yyyy').format(_dueDate);
+                      int color = _currentColor.value;
+                      String _imagePath = _image!.path;
+
+                      Contact newContact =
+                          Contact(name, number, pickDate, color, _imagePath);
                       setState(() {
-                        contactList.add(Contact(name, number));
+                        contactList.add(newContact);
                       });
 
                       _nameController.clear();
                       _numberController.clear();
+                      _image = null;
+                      _currentColor = Colors.orange;
+                      _dueDate = DateTime.now();
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -372,10 +408,9 @@ class _CreateNewContactState extends State<CreateNewContact> {
               itemCount: contactList.length,
               itemBuilder: (BuildContext context, int index) {
                 final contact = contactList[index];
-                final color = circleAvatar;
                 return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: color,
+                    backgroundColor: Color(contact.color),
                     child: Text(
                       contact.name.substring(0, 1),
                       style: TextStyle(
@@ -384,7 +419,25 @@ class _CreateNewContactState extends State<CreateNewContact> {
                     ),
                   ),
                   title: Text(contact.name),
-                  subtitle: Text(contact.number),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(contact.number),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text(contact.pickDate),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: contact.imagePath != null
+                            ? Image.file(File(contact.imagePath!))
+                            : Container(),
+                      )
+                    ],
+                  ),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -479,5 +532,157 @@ class _CreateNewContactState extends State<CreateNewContact> {
         ],
       ),
     );
+  }
+
+  Widget buildDatePicker(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Date',
+            ),
+            TextButton(
+              onPressed: () async {
+                final selectDate = await showDatePicker(
+                  context: context,
+                  initialDate: currentDate,
+                  firstDate: DateTime(1990),
+                  lastDate: DateTime(currentDate.year + 5),
+                );
+                setState(() {
+                  if (selectDate != null) {
+                    _dueDate = selectDate;
+                  }
+                });
+              },
+              child: Text(
+                'Select',
+                style: TextStyle(color: buttonColor),
+              ),
+            )
+          ],
+        ),
+        Text(DateFormat('dd-MM-yyyy').format(_dueDate)),
+      ],
+    );
+  }
+
+  Widget buildColorPicker(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Color'),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 10,
+          width: double.infinity,
+          color: _currentColor,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(_currentColor),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(color: buttonColor)),
+                      title: const Text('Pick Your Color'),
+                      content: BlockPicker(
+                          pickerColor: _currentColor,
+                          onColorChanged: (color) {
+                            setState(() {
+                              _currentColor = color;
+                            });
+                          }),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Save'),
+                        ),
+                      ],
+                    );
+                  });
+            },
+            child: const Text('Pick Color,'),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildFilePicker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Pick Files'),
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(buttonColor),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            onPressed: () {
+              _pickFile();
+            },
+            child: const Text('Pick and Open File'),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        _image != null
+            ? Image.file(
+                _image!,
+                height: 200,
+              )
+            : Container(),
+      ],
+    );
+  }
+
+  void _pickFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    // mendapatkan file dari object result
+    final file = result.files.first;
+
+    setState(() {
+      _image = File(file.path!);
+      _imagePath = file.path!;
+    });
+  }
+
+  void _openFile(PlatformFile file) {
+    OpenFile.open(file.path);
   }
 }
