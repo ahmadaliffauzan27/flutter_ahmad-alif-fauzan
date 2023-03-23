@@ -37,10 +37,12 @@ class CreateNewContact extends StatefulWidget {
 
 class _CreateNewContactState extends State<CreateNewContact> {
   String _imagePath = '';
+  bool showPreview = false;
+
   File? _image;
   DateTime _dueDate = DateTime.now();
   final currentDate = DateTime.now();
-  Color _currentColor = Colors.orange;
+  Color _currentColor = buttonColor;
 
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
@@ -314,21 +316,21 @@ class _CreateNewContactState extends State<CreateNewContact> {
               ),
             ),
           ),
-          //
-          const SizedBox(
-            height: 15,
-          ),
-          buildDatePicker(context),
-          const SizedBox(
-            height: 20,
-          ),
-          buildColorPicker(context),
-          const SizedBox(
-            height: 20,
-          ),
-          buildFilePicker(),
-          const SizedBox(
-            height: 20,
+          Column(
+            children: [
+              buildDatePicker(context),
+              const SizedBox(
+                height: 20,
+              ),
+              buildColorPicker(context),
+              const SizedBox(
+                height: 20,
+              ),
+              buildFilePicker(),
+              const SizedBox(
+                height: 20,
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -340,7 +342,22 @@ class _CreateNewContactState extends State<CreateNewContact> {
                 width: 94,
                 child: ElevatedButton(
                   onPressed: () {
-                    if (_formKey1 == null && _formKey2 == null) {
+                    // if (_formKey1.currentState!.validate() &&
+                    //     _formKey2.currentState!.validate() &&
+                    //     _imagePath.isEmpty) {
+                    if (_formKey1 == null ||
+                        _formKey2 == null ||
+                        _imagePath.isEmpty ||
+                        _nameController.text.isEmpty ||
+                        _nameController.text.isEmpty ||
+                        _dueDate == null ||
+                        _currentColor == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Silakan lengkapi data'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
                       return;
                     } else {
                       String name = _nameController.text;
@@ -354,8 +371,23 @@ class _CreateNewContactState extends State<CreateNewContact> {
                           Contact(name, number, pickDate, color, _imagePath);
                       setState(() {
                         contactList.add(newContact);
+                        // showPreview = false;
                       });
 
+                      print(name);
+                      print(number);
+                      print(pickDate);
+                      print(color);
+                      print(_image);
+
+                      // if (showPreview) {
+                      //   // tampilkan preview jika showPreview bernilai true
+                      //   Image.file(
+                      //     _image!,
+                      //     width: 300,
+                      //     height: 300,
+                      //   );
+                      // }
                       _nameController.clear();
                       _numberController.clear();
                       _image = null;
@@ -624,7 +656,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                     );
                   });
             },
-            child: const Text('Pick Color,'),
+            child: const Text('Pick Avatar Color'),
           ),
         )
       ],
@@ -652,8 +684,9 @@ class _CreateNewContactState extends State<CreateNewContact> {
             ),
             onPressed: () {
               _pickFile();
+              //
             },
-            child: const Text('Pick and Open File'),
+            child: const Text('Pick File'),
           ),
         ),
         const SizedBox(
