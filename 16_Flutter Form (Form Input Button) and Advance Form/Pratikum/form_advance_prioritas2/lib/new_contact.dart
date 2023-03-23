@@ -374,6 +374,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                         // showPreview = false;
                       });
 
+                      // untuk mengecek apakah data masuk saat tombol submit ditekan
                       print(name);
                       print(number);
                       print(pickDate);
