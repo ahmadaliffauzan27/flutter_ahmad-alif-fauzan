@@ -38,10 +38,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Flutter Gallery',
-          style: titleFont,
-        ),
+        title: Wrap(spacing: 10, children: [
+          Text(
+            'Flutter Gallery 2',
+            style: titleFont,
+          ),
+          const Icon(Icons.photo_library),
+        ]),
         backgroundColor: primaryColor,
       ),
       body: Padding(
@@ -56,8 +59,112 @@ class HomePage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, '/detail',
-                    arguments: images[index]);
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      height: 500,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Wrap(
+                            // runSpacing: 5,
+                            spacing: 10,
+                            children: [
+                              Icon(
+                                Icons.touch_app,
+                                color: primaryColor,
+                                size: 17,
+                              ),
+                              Text(
+                                'Klik untuk melihat foto secara penuh',
+                                style: subtitleFont,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      'Tampilkan detail foto ini?',
+                                      style: titleFont.copyWith(
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                    content: SizedBox(
+                                      height: 220,
+                                      width: 200,
+                                      child: Image.network(
+                                        images[index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text(
+                                          'Tidak',
+                                          style: subtitleFont.copyWith(
+                                              color: primaryColor),
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  primaryColor),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Navigator.pushNamed(
+                                              context, '/detail',
+                                              arguments: images[index]);
+                                        },
+                                        child: Text(
+                                          'Ya',
+                                          style: subtitleFont.copyWith(
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: SizedBox(
+                              height: 300,
+                              width: 300,
+                              child: Image.network(
+                                images[index],
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
               },
               child: Image.network(
                 images[index],
