@@ -34,10 +34,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: secondaryColor,
       appBar: AppBar(
-        title: Text(
-          'Flutter Gallery',
-          style: titleFont,
+        title: Wrap(
+          spacing: 10,
+          children: [
+            Text(
+              'Flutter Gallery',
+              style: titleFont,
+            ),
+            Icon(Icons.photo_library)
+          ],
         ),
         backgroundColor: primaryColor,
       ),
@@ -54,6 +61,7 @@ class HomePage extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
@@ -67,9 +75,20 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            'Klik untuk melihat foto secara penuh',
-                            style: subtitleFont,
+                          Wrap(
+                            // runSpacing: 5,
+                            spacing: 10,
+                            children: [
+                              Icon(
+                                Icons.touch_app,
+                                color: primaryColor,
+                                size: 17,
+                              ),
+                              Text(
+                                'Klik untuk melihat foto secara penuh',
+                                style: subtitleFont,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             height: 20,
@@ -87,9 +106,17 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     title: Text(
-                                      'Tampilkan detail foto?',
+                                      'Tampilkan detail foto ini?',
                                       style: titleFont.copyWith(
-                                          color: Colors.black),
+                                          color: Colors.black, fontSize: 14),
+                                    ),
+                                    content: SizedBox(
+                                      height: 220,
+                                      width: 200,
+                                      child: Image.network(
+                                        images[index],
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                     actions: [
                                       TextButton(
