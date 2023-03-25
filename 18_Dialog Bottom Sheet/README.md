@@ -1,0 +1,5 @@
+**_Dialog Bottom Sheet_** adalah salah satu jenis widget yang digunakan untuk menampilkan informasi atau pilihan kepada pengguna dalam bentuk modal dialog dengan posisi yang berada di bagian bawah layar. Pengguna dapat memilih salah satu opsi yang tersedia atau menutup dialog bottom sheet untuk kembali ke layar sebelumnya.
+
+Untuk membuat dialog bottom sheet, kita dapat menggunakan widget showModalBottomSheet yang disediakan oleh Flutter. Widget ini memiliki beberapa parameter seperti context, builder, dan isScrollControlled yang dapat kita sesuaikan dengan kebutuhanmu. builder digunakan untuk menentukan tampilan atau isi dari dialog bottom sheet, sedangkan isScrollControlled digunakan untuk menentukan apakah dialog bottom sheet dapat di-scroll atau tidak.
+
+Selain itu, kita juga dapat menambahkan widget lain seperti ListView, Column, atau Row ke dalam builder untuk menampilkan pilihan atau informasi kepada pengguna. Untuk menutup dialog bottom sheet, kita dapat menggunakan fungsi Navigator.pop dengan parameter context dan nilai yang ingin dikembalikan ke layar sebelumnya.
