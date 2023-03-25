@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
     'Tugas Section 16 \n Form Input',
     'Tugas Section 16 \n Advance Form',
     'Tugas Section 17',
+    'Code Competence\nWeekly 1',
     // 'Tugas Section 18',
   ];
 
@@ -60,6 +61,10 @@ class HomePage extends StatelessWidget {
                     break;
                   case 5:
                     Navigator.pushNamed(context, '/gallery',
+                        arguments: section[index]);
+                    break;
+                  case 6:
+                    Navigator.pushNamed(context, '/weekly1',
                         arguments: section[index]);
                     break;
 
