@@ -58,7 +58,7 @@ class _CreateContactPageState extends State<CreateContactPage> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter a name';
+                    return 'Please enter your name';
                   }
                   return null;
                 },
@@ -91,7 +91,7 @@ class _CreateContactPageState extends State<CreateContactPage> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter a phone number';
+                    return 'Please enter your phone number';
                   } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                     return 'Please input a valid number';
                   } else if (value[0] != '0') {
@@ -103,12 +103,12 @@ class _CreateContactPageState extends State<CreateContactPage> {
                   _phoneNumber = value;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(primaryColor)),
-                child: Text('Save'),
+                child: const Text('Save'),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
