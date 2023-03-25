@@ -57,7 +57,7 @@ class _CreateContactPageState extends State<CreateContactPage> {
                   labelStyle: subtitleName,
                 ),
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
+                  if (value!.isEmpty) {
                     return 'Please enter a name';
                   }
                   return null;
@@ -90,9 +90,9 @@ class _CreateContactPageState extends State<CreateContactPage> {
                   labelStyle: subtitleName,
                 ),
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
+                  if (value!.isEmpty) {
                     return 'Please enter a phone number';
-                  } else if (!RegExp(r'^[0-9]+$').hasMatch(value!)) {
+                  } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                     return 'Please input a valid number';
                   } else if (value[0] != '0') {
                     return 'Number must start with 0';
