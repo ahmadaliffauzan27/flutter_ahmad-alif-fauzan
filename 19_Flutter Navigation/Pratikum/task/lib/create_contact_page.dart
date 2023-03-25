@@ -12,12 +12,12 @@ class _CreateContactPageState extends State<CreateContactPage> {
   String? _name;
   String? _phoneNumber;
 
-  @override
-  void initState() {
-    _name = '';
-    _phoneNumber = '';
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _name = '';
+  //   _phoneNumber = '';
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
