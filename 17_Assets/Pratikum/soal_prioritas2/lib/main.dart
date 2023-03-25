@@ -3,6 +3,7 @@ import 'package:task_gridview/flutter_gallery.dart';
 import 'package:task_gridview/section13/material_page.dart';
 import 'package:task_gridview/section15/home_section15.dart';
 import 'package:task_gridview/section16_advance_form/main.dart';
+import 'package:task_gridview/section19/main.dart';
 import 'package:task_gridview/weekly1/main.dart';
 import 'section16_form/main.dart';
 import 'package:task_gridview/section16_form/main.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
           '/section16_2': (context) => const HomeFormAdvance(),
           '/gallery': (context) => FlutterGallery(),
           '/weekly1': (context) => const Weekly1(),
+          '/section19': (context) => Section19(),
           '/detail': (context) => DetailPage(),
         });
   }
