@@ -4,9 +4,11 @@ import 'package:task/create_contact_page.dart';
 import 'package:task/app_state.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -17,10 +19,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ContactsPage(),
-        routes: {
-          '/create': (context) => CreateContactPage(),
-        },
+        home: const ContactsPage(),
+        // routes: {
+        //   '/create': (context) => const CreateContactPage(),
+        // },
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'contact.dart';
 
 class CreateContactPage extends StatefulWidget {
+  const CreateContactPage({super.key});
+
   @override
   _CreateContactPageState createState() => _CreateContactPageState();
 }
@@ -14,13 +16,6 @@ class _CreateContactPageState extends State<CreateContactPage> {
 
   String? _name;
   String? _phoneNumber;
-
-  // @override
-  // void initState() {
-  //   _name = '';
-  //   _phoneNumber = '';
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +51,12 @@ class _CreateContactPageState extends State<CreateContactPage> {
                       borderRadius: BorderRadius.circular(10)),
                   // enabledBorder: InputBorder.none,
                   // focusedBorder: InputBorder.none,
-                  labelText: 'Input name',
+                  labelText: 'e.g Ahmad Alif Fauzan',
                   labelStyle: subtitleName,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your name';
+                    return 'Please input a name';
                   }
                   return null;
                 },
@@ -94,7 +89,7 @@ class _CreateContactPageState extends State<CreateContactPage> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your phone number';
+                    return 'Please input phone number';
                   } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                     return 'Please input a valid number';
                   } else if (value[0] != '0') {
@@ -119,6 +114,12 @@ class _CreateContactPageState extends State<CreateContactPage> {
                     Provider.of<AppState>(context, listen: false)
                         .addContact(newContact);
                     Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Kontak Berhasil Ditambahkan'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
                   }
                 },
               ),
