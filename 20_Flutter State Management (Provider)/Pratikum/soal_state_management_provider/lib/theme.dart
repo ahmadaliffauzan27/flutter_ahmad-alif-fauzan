@@ -16,3 +16,12 @@ var subtitleFont = GoogleFonts.poppins(
   fontSize: 14,
   fontWeight: FontWeight.w500,
 );
+
+var titleName = GoogleFonts.poppins(
+  fontSize: 14,
+  fontWeight: FontWeight.w500,
+);
+var subtitleName = GoogleFonts.poppins(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+);
