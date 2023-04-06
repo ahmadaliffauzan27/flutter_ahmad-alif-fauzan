@@ -1,6 +1,6 @@
 class Contact {
-  final String name;
-  final String phoneNumber;
+  late String name;
+  late String phoneNumber;
 
   Contact(this.name, this.phoneNumber);
 }
