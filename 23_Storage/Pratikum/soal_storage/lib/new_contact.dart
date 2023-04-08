@@ -72,6 +72,28 @@ class _CreateNewContactState extends State<CreateNewContact> {
     });
   }
 
+  void _saveContact() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Kontak Berhasil Ditambahkan!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      final contactToAdd = Contact(
+        id: idRandom,
+        name: _nameController.text,
+        number: _numberController.text,
+      );
+      Provider.of<DbManager>(context, listen: false).addContact(contactToAdd);
+
+      _nameController.clear();
+      _numberController.clear();
+
+      generateId();
+    }
+  }
+
   String? validateName(String? name) {
     if (name == null || name.isEmpty) {
       return "Nama Tidak Boleh Kosong";
@@ -185,12 +207,11 @@ class _CreateNewContactState extends State<CreateNewContact> {
               //   );
               Provider.of<DbManager>(context, listen: false)
                   .updateContact(contact.id!, updatedContact);
-              name = '';
-              number = '';
+
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Data Berhasil Diedit'),
+                  content: Text('Kontak Berhasil Diedit'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -431,32 +452,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                     width: 94,
                     child: ElevatedButton(
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor:
-                                const Color.fromARGB(255, 6, 135, 92)
-                                    .withOpacity(0.8),
-                            content: const Text('Sukses Menambahkan Contacts'),
-                            duration: const Duration(seconds: 3),
-                            action: SnackBarAction(
-                              textColor: Colors.white,
-                              label: 'Sukses !',
-                              onPressed: () {},
-                            ),
-                          ),
-                        );
-                        final contactToAdd = Contact(
-                          id: idRandom,
-                          name: _nameController.text,
-                          number: _numberController.text,
-                        );
-                        Provider.of<DbManager>(context, listen: false)
-                            .addContact(contactToAdd);
-
-                        _nameController.clear();
-                        _numberController.clear();
-
-                        generateId();
+                        _saveContact();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
@@ -588,17 +584,10 @@ class _CreateNewContactState extends State<CreateNewContact> {
 
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
-                                                SnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                      'Kontak Berhasil Dihapus!'),
                                                   backgroundColor: Colors.green,
-                                                  content: const Text(
-                                                      'Sukses Menghapus Contacts'),
-                                                  duration: const Duration(
-                                                      seconds: 3),
-                                                  action: SnackBarAction(
-                                                    textColor: Colors.white,
-                                                    label: 'Deleted Sukses!',
-                                                    onPressed: () {},
-                                                  ),
                                                 ),
                                               );
                                               Navigator.pop(context);
@@ -615,7 +604,8 @@ class _CreateNewContactState extends State<CreateNewContact> {
                       );
                     });
               } else {
-                return const Text('Kosong');
+                return Center(
+                    child: const Text('Belum ada kontak yang ditambahkan :('));
               }
             }),
           ]),
