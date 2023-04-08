@@ -1,5 +1,5 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +10,7 @@ import 'package:soal_storage/theme.dart';
 import 'input_decoration.dart';
 import 'model/contact_model.dart';
 import 'package:uuid/uuid.dart';
+import 'dart:developer';
 
 extension StringExtension on String {
   String capitalize() {
@@ -29,10 +30,26 @@ class _CreateNewContactState extends State<CreateNewContact> {
   final _formKey = GlobalKey<FormState>();
 
   late SharedPreferences logindata;
+  var indexName = 0;
+  int idRandom = 0;
+  // var rng = Random();
+  // for (var i = 0; i < 10; i++) {
+  //   print(rng.nextInt(100));
+  // }
+
+  var rng = new Random();
+  // var l = List.generate(12, (_) => rng.nextInt(100));
+
   String username = '';
+  String name = '';
+  String number = '';
 
   final _nameController = TextEditingController();
   final _numberController = TextEditingController();
+
+  void generateId() {
+    idRandom++;
+  }
 
   @override
   void dispose() {
@@ -45,6 +62,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
   void initState() {
     super.initState();
     initial();
+    generateId();
   }
 
   void initial() async {
@@ -109,12 +127,18 @@ class _CreateNewContactState extends State<CreateNewContact> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
+              onChanged: (value) {
+                name = value;
+              },
               controller: nameController,
               decoration: InputDecoration(
                 hintText: 'Name',
               ),
             ),
             TextFormField(
+              onChanged: (value) {
+                number = value;
+              },
               controller: numberController,
               decoration: InputDecoration(
                 hintText: 'Number',
@@ -139,8 +163,8 @@ class _CreateNewContactState extends State<CreateNewContact> {
             onPressed: () {
               final updatedContact = Contact(
                 id: contact.id,
-                name: nameController.text,
-                number: numberController.text,
+                name: name,
+                number: number,
               );
               // if (widget.contact != null) {
               //   _nameController.text = widget.contact!.name;
@@ -159,10 +183,11 @@ class _CreateNewContactState extends State<CreateNewContact> {
               //     name: _nameController.text,
               //     number: _numberController.text,
               //   );
-              //   Provider.of<DbManager>(context, listen: false)
-              //       .updateContact(contact);
-              // }
-              Navigator.of(context).pop();
+              Provider.of<DbManager>(context, listen: false)
+                  .updateContact(contact.id!, updatedContact);
+              name = '';
+              number = '';
+              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Data Berhasil Diedit'),
@@ -348,7 +373,7 @@ class _CreateNewContactState extends State<CreateNewContact> {
                       children: [
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: _nameController,
+                          controller: _nameController..text = name.toString(),
                           validator: validateName,
                           decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -366,7 +391,8 @@ class _CreateNewContactState extends State<CreateNewContact> {
                         ),
                         TextFormField(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          controller: _numberController,
+                          controller: _numberController
+                            ..text = number.toString(),
                           validator: validatePhone,
                           style: const TextStyle(
                             fontSize: 14,
@@ -405,34 +431,32 @@ class _CreateNewContactState extends State<CreateNewContact> {
                     width: 94,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          String name = _nameController.text;
-                          String number = _numberController.text;
-                          Contact newContact =
-                              Contact(name: name, number: number);
-                          if (widget.contact != null) {
-                            _nameController.text = widget.contact!.name;
-                            _isUpdate = true;
-                          }
-                          if (!_isUpdate) {
-                            final ctc = Contact(
-                              name: _nameController.text,
-                              number: _numberController.text,
-                            );
-                            Provider.of<DbManager>(context, listen: false)
-                                .addContact(newContact);
-                          }
-
-                          _nameController.clear();
-                          _numberController.clear();
-
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Data Berhasil Disimpan'),
-                              backgroundColor: Colors.green,
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor:
+                                const Color.fromARGB(255, 6, 135, 92)
+                                    .withOpacity(0.8),
+                            content: const Text('Sukses Menambahkan Contacts'),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              textColor: Colors.white,
+                              label: 'Sukses !',
+                              onPressed: () {},
                             ),
-                          );
-                        }
+                          ),
+                        );
+                        final contactToAdd = Contact(
+                          id: idRandom,
+                          name: _nameController.text,
+                          number: _numberController.text,
+                        );
+                        Provider.of<DbManager>(context, listen: false)
+                            .addContact(contactToAdd);
+
+                        _nameController.clear();
+                        _numberController.clear();
+
+                        generateId();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
@@ -457,15 +481,18 @@ class _CreateNewContactState extends State<CreateNewContact> {
             ),
 
             Consumer<DbManager>(builder: (context, manager, child) {
+              final contactModel = manager.contacts;
+
               if (manager.contacts.isNotEmpty) {
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    itemCount: manager.contacts.length,
+                    itemCount: contactModel.length,
+                    // itemCount: manager.contacts.length,
                     itemBuilder: (BuildContext context, int index) {
                       final contact = manager.contacts[index];
                       final color = circleAvatar;
-                      final item = manager.contacts;
+                      // final item = manager.contacts;
                       return ListTile(
                         leading: CircleAvatar(
                           backgroundColor: color,
@@ -550,18 +577,32 @@ class _CreateNewContactState extends State<CreateNewContact> {
                                                 primary: buttonColor),
                                             child: const Text('Ya'),
                                             onPressed: () {
+                                              final contactToDelete = Contact(
+                                                  id: contact.id,
+                                                  name: contact.name,
+                                                  number: contact.number);
                                               Provider.of<DbManager>(context,
                                                       listen: false)
-                                                  .deleteContact(contact.id!);
-                                              Navigator.pop(context);
+                                                  .deleteContact(contact.id!,
+                                                      contactToDelete);
+
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(
-                                                const SnackBar(
-                                                  content: Text(
-                                                      'Data Berhasil Dihapus'),
-                                                  backgroundColor: Colors.red,
+                                                SnackBar(
+                                                  backgroundColor: Colors.green,
+                                                  content: const Text(
+                                                      'Sukses Menghapus Contacts'),
+                                                  duration: const Duration(
+                                                      seconds: 3),
+                                                  action: SnackBarAction(
+                                                    textColor: Colors.white,
+                                                    label: 'Deleted Sukses!',
+                                                    onPressed: () {},
+                                                  ),
                                                 ),
                                               );
+                                              Navigator.pop(context);
+                                              // log(index.toString());
                                             },
                                           ),
                                         ],

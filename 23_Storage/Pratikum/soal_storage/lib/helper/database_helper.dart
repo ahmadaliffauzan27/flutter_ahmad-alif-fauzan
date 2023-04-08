@@ -21,13 +21,13 @@ class DatabaseHelper {
   final String _tableName = 'contacts';
 
   Future<Database> _initializeDb() async {
-    var db = openDatabase(join(await getDatabasesPath(), 'contacts.db'),
+    var db = openDatabase(join(await getDatabasesPath(), 'storage.db'),
         onCreate: (db, version) async {
       await db.execute(
         '''CREATE TABLE $_tableName(
         id INTEGER PRIMARY KEY, 
-        name VARCHAR, 
-        number VARCHAR)''',
+        name TEXT, 
+        number TEXT)''',
       );
     }, version: 1);
     return db;
@@ -44,7 +44,7 @@ class DatabaseHelper {
     return results.map((e) => Contact.fromMap(e)).toList();
   }
 
-  Future<Contact> getContactById(int id) async {
+  Future<Contact> getContactById(String id) async {
     final Database db = await database;
     List<Map<String, dynamic>> results = await db.query(
       _tableName,
@@ -54,7 +54,7 @@ class DatabaseHelper {
     return results.map((e) => Contact.fromMap(e)).first;
   }
 
-  Future<void> updateContact(Contact contact) async {
+  Future<void> updateContact(int id, Contact contact) async {
     final db = await database;
     await db.update(
       _tableName,
@@ -64,7 +64,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteContact(int id) async {
+  Future<void> deleteContact(int id, Contact contact) async {
     final db = await database;
     await db.delete(
       _tableName,
