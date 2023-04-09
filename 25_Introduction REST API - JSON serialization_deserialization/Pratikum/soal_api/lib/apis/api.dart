@@ -28,7 +28,7 @@ class Services {
 
   Future getImage() async {
     final Response response =
-        await dio.get('https://api.dicebear.com/6.x/bottts/svg');
+        await dio.get('https://api.dicebear.com/6.x/lorelei/svg');
 
     imgUrl = response.data;
     log(imgUrl);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soal_api/soal_prioritas1.dart';
+import 'package:soal_api/soal_prioritas2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SoalPrioritas1(),
+      // home: const SoalPrioritas1(),
+      home: SoalPrioritas2(),
     );
   }
 }
