@@ -35,7 +35,7 @@ class _SoalPrioritas2State extends State<SoalPrioritas2> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Direct Bear API',
+          'DiceBear API',
           style: titleFont,
         ),
         centerTitle: true,
@@ -59,7 +59,7 @@ class _SoalPrioritas2State extends State<SoalPrioritas2> {
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Try Direct Bear API',
+                          'Try DiceBear API',
                           style: subtitleName,
                         ),
                       ],
