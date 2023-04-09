@@ -37,7 +37,7 @@ class Services {
 
   Future getImageInput(String inputNameImage) async {
     final Response response = await dio
-        .get('https://api.dicebear.com/6.x/pixel-art/svg?seed=$inputNameImage');
+        .get('https://api.dicebear.com/6.x/initials/svg?seed=$inputNameImage');
 
     imgUrl = response.data;
     log("input is : $inputNameImage");
