@@ -18,8 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
+      // Aktifkan ini untuk soal prioritas 1
       // home: const SoalPrioritas1(),
-      home: SoalPrioritas2(),
+
+      // Aktifkan ini untuk soal prioritas 2
+      home: const SoalPrioritas2(),
     );
   }
 }
