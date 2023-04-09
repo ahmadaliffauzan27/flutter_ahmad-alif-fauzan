@@ -6,4 +6,4 @@ Pada dasarnya, penggunaan REST API pada Flutter melibatkan tiga hal, yaitu memba
 
 Dalam penggunaan REST API, terdapat beberapa metode HTTP request seperti GET, POST, PUT, PATCH, DELETE, dan OPTIONS. Setiap metode memiliki fungsinya masing-masing dalam mengirim dan menerima data dari server.
 
-Dalam proses pengiriman data dari server ke aplikasi atau sebaliknya, sangat penting untuk memahami struktur data JSON dan bagaimana cara mengirim dan menerima data dengan benar agar dapat digunakan pada aplikasi Flutter.
+Dalam proses pengiriman data dari server ke aplikasi atau sebaliknya, sangat penting untuk memahami struktur data JSON dan bagaimana cara mengirim dan menerima data dengan benar agar dapat digunakan pada aplikasi Flutter..
