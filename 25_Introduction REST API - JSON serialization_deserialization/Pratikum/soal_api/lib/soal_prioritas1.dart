@@ -165,22 +165,22 @@ class _SoalPrioritas1State extends State<SoalPrioritas1> {
                               style: subtitleName,
                             ),
                           ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  primaryColor),
-                            ),
-                            onPressed: () async {
-                              await Services().deleteUser(
-                                  1); // ubah id sesuai dengan id data yang ingin dihapus
-                              setState(
-                                  () {}); // setelah data dihapus, tampilan perlu diperbarui
-                            },
-                            child: Text(
-                              'DELETE',
-                              style: subtitleName,
-                            ),
-                          ),
+                          // ElevatedButton(
+                          //   style: ButtonStyle(
+                          //     backgroundColor: MaterialStateProperty.all<Color>(
+                          //         primaryColor),
+                          //   ),
+                          //   onPressed: () async {
+                          //     await Services().deleteUser(
+                          //         1); // ubah id sesuai dengan id data yang ingin dihapus
+                          //     setState(
+                          //         () {}); // setelah data dihapus, tampilan perlu diperbarui
+                          //   },
+                          //   child: Text(
+                          //     'DELETE',
+                          //     style: subtitleName,
+                          //   ),
+                          // ),
                         ]),
                   ),
                   SizedBox(

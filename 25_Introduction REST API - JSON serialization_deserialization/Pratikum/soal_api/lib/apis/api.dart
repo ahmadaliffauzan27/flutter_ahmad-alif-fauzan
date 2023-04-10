@@ -5,31 +5,24 @@ import 'package:flutter/rendering.dart';
 import '../models/model.dart';
 
 final Dio dio = Dio();
+String imgUrl = '';
 
 class Services {
-  // baca data
   Future readUser() async {
     try {
-      final Dio dio = Dio();
       final Response response = await dio.get(
           "https://my-json-server.typicode.com/hadihammurabi/flutter-webservice/contacts");
-
       log("Fetch data kedalam Json");
       debugPrint(response.data.toString());
       return response.data;
     } catch (e) {
-      // print(e);
       rethrow;
     }
   }
 
-  // generate image
-  String imgUrl = '';
-
   Future getImage() async {
     final Response response =
         await dio.get('https://api.dicebear.com/6.x/lorelei/svg');
-
     imgUrl = response.data;
     log(imgUrl);
     return response;
@@ -38,14 +31,12 @@ class Services {
   Future getImageInput(String inputNameImage) async {
     final Response response = await dio
         .get('https://api.dicebear.com/6.x/initials/svg?seed=$inputNameImage');
-
     imgUrl = response.data;
     log("input is : $inputNameImage");
     log(response.data);
     return response;
   }
 
-  // metode POST Prioritas 1
   Future createUser({
     required String name,
     required String phone,
@@ -53,7 +44,6 @@ class Services {
     final Response response = await dio.post(
         'https://my-json-server.typicode.com/hadihammurabi/flutter-webservice/contacts',
         data: {'name': name, 'phone': phone});
-
     final User userModels = User.fromJson(response.data);
     log('POST');
     log('DATA : ${response.data.toString()}');
@@ -86,20 +76,19 @@ class Services {
     }
   }
 
-  Future deleteUser(int id) async {
-    try {
-      final Response response = await dio.delete(
-        'https://jsonplaceholder.typicode.com/posts/$id',
-      );
+  // Future deleteUser(int id) async {
+  //   try {
+  //     final Response response = await dio.delete(
+  //       'https://jsonplaceholder.typicode.com/posts/$id',
+  //     );
+  //     log("DELETE");
+  //     log("DELETE ID $id");
+  //     log(response.data.toString());
+  //     log("Deleted ID: ${response.data["id"]}");
 
-      log("DELETE");
-      log("DELETE ID $id");
-      log(response.data.toString());
-      log("Deleted ID: ${response.data["id"]}");
-
-      return response.data;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  //     return response.data;
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 }
