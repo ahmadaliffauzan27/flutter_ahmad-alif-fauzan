@@ -43,7 +43,7 @@ class Services {
   }) async {
     final Response response = await dio.post(
         'https://my-json-server.typicode.com/hadihammurabi/flutter-webservice/contacts',
-        data: {'name': name, 'phone': phone});
+        data: {'name': name, 'phone': phone}); //objek
     final User userModels = User.fromJson(response.data);
     log('POST');
     log('DATA : ${response.data.toString()}');

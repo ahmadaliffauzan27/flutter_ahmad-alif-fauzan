@@ -11,6 +11,7 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
+      // memetekan key & value
       'id': id,
       'name': name,
       'phone': phone,
@@ -23,7 +24,6 @@ class User {
     phone = json['phone'];
   }
   Map<String, dynamic> toJson() {
-    // var map = new Map<String, dynamic>();
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['phone'] = phone;
