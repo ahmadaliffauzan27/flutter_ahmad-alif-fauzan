@@ -32,7 +32,7 @@ class _SoalEksplorasiState extends State<SoalEksplorasi> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Inisial Gambar',
+          'Soal Eksplorasi',
           style: titleFont,
         ),
         centerTitle: true,

@@ -3,6 +3,8 @@ import 'package:soal_api/soal_eksplorasi.dart';
 import 'package:soal_api/soal_prioritas1.dart';
 import 'package:soal_api/soal_prioritas2.dart';
 
+import 'home_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,15 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-
-      // Aktifkan ini untuk soal prioritas 1
-      // home: const SoalPrioritas1(),
-
-      // Aktifkan ini untuk soal prioritas 2
-      // home: const SoalPrioritas2(),
-
-      // Aktifkan ini untuk soal eksplorasi
-      home: SoalEksplorasi(),
+      home: HomePage(),
     );
   }
 }

@@ -27,15 +27,12 @@ class _SoalPrioritas2State extends State<SoalPrioritas2> {
 
   final service = Services();
 
-  bool _isImageMovingRight = true;
-  double _imagePosition = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'DiceBear API',
+          'Soal Prioritas 2',
           style: titleFont,
         ),
         centerTitle: true,
@@ -92,18 +89,12 @@ class _SoalPrioritas2State extends State<SoalPrioritas2> {
                   children: [
                     //data Response
                     result != ""
-                        ? AnimatedContainer(
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                            transform:
-                                Matrix4.translationValues(_imagePosition, 0, 0),
-                            child: SizedBox(
-                              height: 200,
-                              width: 200,
-                              child: SvgPicture.string(
-                                result,
-                                fit: BoxFit.cover,
-                              ),
+                        ? SizedBox(
+                            height: 200,
+                            width: 200,
+                            child: SvgPicture.string(
+                              result,
+                              fit: BoxFit.cover,
                             ),
                           )
                         : Center(
