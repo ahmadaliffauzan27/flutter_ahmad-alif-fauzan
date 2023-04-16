@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             title: Text('Food List'),
           ),
-          body: FoodListWidget(),
+          body: const ListFoodWIdget(),
         ),
       ),
     );

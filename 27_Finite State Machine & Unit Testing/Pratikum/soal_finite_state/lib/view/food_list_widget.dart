@@ -3,12 +3,14 @@ import 'package:provider/provider.dart';
 
 import '../view_model/food_provider.dart';
 
-class FoodListWidget extends StatefulWidget {
+class ListFoodWIdget extends StatefulWidget {
+  const ListFoodWIdget({super.key});
+
   @override
-  _FoodListWidgetState createState() => _FoodListWidgetState();
+  _ListFoodWIdgetState createState() => _ListFoodWIdgetState();
 }
 
-class _FoodListWidgetState extends State<FoodListWidget> {
+class _ListFoodWIdgetState extends State<ListFoodWIdget> {
   @override
   void initState() {
     super.initState();
@@ -19,9 +21,9 @@ class _FoodListWidgetState extends State<FoodListWidget> {
   Widget build(BuildContext context) {
     final foodProvider = Provider.of<FoodProvider>(context);
 
-    if (foodProvider.state is LoadingState) {
+    if (foodProvider.state == FoodState.loading) {
       return Center(child: CircularProgressIndicator());
-    } else if (foodProvider.state is ErrorState) {
+    } else if (foodProvider.state == FoodState.error) {
       return Center(child: Text('Error fetching data'));
     } else {
       final foodList = foodProvider.foodList;
